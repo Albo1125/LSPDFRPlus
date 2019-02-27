@@ -670,7 +670,11 @@ namespace LSPDFR_
             {
                 if (Functions.IsPlayerPerformingPullover() && !_MenuPool.IsAnyMenuOpen() && EnhancedTrafficStop.EnhancedTrafficStopsEnabled)
                 {
-                    if (Vector3.Distance2D(Game.LocalPlayer.Character.Position, Functions.GetPulloverSuspect(Functions.GetCurrentPullover()).CurrentVehicle.Position) < TrafficStopMenuDistance + 0.1f)
+                    Ped pulloverSuspect = Functions.GetPulloverSuspect(Functions.GetCurrentPullover());
+                    if (pulloverSuspect &&
+                        pulloverSuspect.IsInAnyVehicle(false) &&
+                        Vector3.Distance2D(Game.LocalPlayer.Character.Position, pulloverSuspect.CurrentVehicle.Position) < TrafficStopMenuDistance + 0.1f
+                        )
                     {
                         ExtensionNamespace.Extensions.DisEnableControls(false);
                         //ExtensionNamespace.Extensions.DisableTrafficStopControls();
