@@ -18,7 +18,7 @@ namespace LSPDFR_
     {
         public static bool EnhancedTrafficStopsEnabled = true;
         public static ControllerButtons BringUpTrafficStopMenuControllerButton = ControllerButtons.DPadRight;
-        public static Keys BringUpTrafficStopMenuKey = Keys.E;
+        public static Keys BringUpTrafficStopMenuKey = Keys.D7;
 
         public static TupleList<Ped, string, string> PedsWithCustomTrafficStopQuestionsAndAnswers = new TupleList<Ped, string, string>();
         public static TupleList<Ped, string, Func<Ped, string>> PedsCustomTrafficStopQuestionsAndCallBackAnswer = new TupleList<Ped, string, Func<Ped, string>>();
@@ -104,6 +104,9 @@ namespace LSPDFR_
         {
             if (Functions.IsPlayerPerformingPullover())
             {
+
+                Game.DisplaySubtitle($"Press {BringUpTrafficStopMenuKey} to bring up LSPDFR+ TS m"); //TODO temp temp
+
                 SuspectVehicle = Functions.GetPulloverSuspect(Functions.GetCurrentPullover()).CurrentVehicle;
                 Suspect = Functions.GetPulloverSuspect(Functions.GetCurrentPullover());
                 if (SuspectVehicle.IsBoat)
