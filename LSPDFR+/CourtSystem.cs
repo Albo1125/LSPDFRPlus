@@ -196,7 +196,7 @@ namespace LSPDFR_
 
         public static void CreateNewCourtCase(Persona Defendant, string Crime, int GuiltyChance, string CourtVerdict)
         {
-            CreateNewCourtCase(Defendant.FullName, Defendant.BirthDay, Crime, DateTime.Now, GuiltyChance, CourtVerdict, DetermineCourtHearingDate(), false);
+            CreateNewCourtCase(Defendant.FullName, Defendant.Birthday, Crime, DateTime.Now, GuiltyChance, CourtVerdict, DetermineCourtHearingDate(), false);
         }
         //public static void CreateNewCourtCase(Persona Defendant, EnhancedTrafficStop.TrafficOffences TrafficOffence)
         //{
