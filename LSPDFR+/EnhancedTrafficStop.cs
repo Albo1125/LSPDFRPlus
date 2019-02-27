@@ -27,6 +27,8 @@ namespace LSPDFR_
 
         public static TupleList<Ped, TrafficStopQuestionsInfo> SuspectsTrafficStopQuestionsInfo = new TupleList<Ped, TrafficStopQuestionsInfo>();
 
+        public static bool HasShownKeybindHelp = false;
+
 
         public static void PedBackIntoVehicleLogic(Ped suspect, Vehicle suspectvehicle)
         {
@@ -105,7 +107,14 @@ namespace LSPDFR_
             if (Functions.IsPlayerPerformingPullover())
             {
 
-                Game.DisplaySubtitle($"Press {BringUpTrafficStopMenuKey} to bring up LSPDFR+ TS m"); //TODO temp temp
+                if (!HasShownKeybindHelp)
+                {
+                    string maybeControllerButton = BringUpTrafficStopMenuControllerButton != ControllerButtons.None ? $" or ~o~{BringUpTrafficStopMenuControllerButton}~w~" : "";
+
+                    Game.DisplayNotification($"Press ~b~{BringUpTrafficStopMenuKey}~w~{maybeControllerButton} when standing at the side of the vehicle to bring up the ~g~LSPDFR+ Traffic Stop~w~ menu instead of the normal Traffic Stop menu.");
+                    HasShownKeybindHelp = true;
+                }
+                
 
                 SuspectVehicle = Functions.GetPulloverSuspect(Functions.GetCurrentPullover()).CurrentVehicle;
                 Suspect = Functions.GetPulloverSuspect(Functions.GetCurrentPullover());
