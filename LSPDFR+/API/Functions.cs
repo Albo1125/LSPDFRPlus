@@ -29,7 +29,7 @@ namespace LSPDFR_.API
             {
                 Game.LogTrivial("LSPDFR+ API adding new court case.");
 
-                CourtSystem.CreateNewCourtCase(DefendantPersona.FullName, DefendantPersona.BirthDay, Crime, DateTime.Now, GuiltyChance, CourtVerdict, CourtSystem.DetermineCourtHearingDate(), false);
+                CourtSystem.CreateNewCourtCase(DefendantPersona.FullName, DefendantPersona.Birthday, Crime, DateTime.Now, GuiltyChance, CourtVerdict, CourtSystem.DetermineCourtHearingDate(), false);
             }
             else
             {
@@ -51,7 +51,7 @@ namespace LSPDFR_.API
             {
                 Game.LogTrivial("LSPDFR+ API adding new court case.");
 
-                CourtSystem.CreateNewCourtCase(DefendantPersona.FullName, DefendantPersona.BirthDay, Crime, DateTime.Now, GuiltyChance, CourtVerdict, ResultsPublishTime, false);
+                CourtSystem.CreateNewCourtCase(DefendantPersona.FullName, DefendantPersona.Birthday, Crime, DateTime.Now, GuiltyChance, CourtVerdict, ResultsPublishTime, false);
             }
             else
             {
