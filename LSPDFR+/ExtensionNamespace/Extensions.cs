@@ -24,7 +24,7 @@ namespace LSPDFR_.ExtensionNamespace
                 else
                 {
                     Persona pers = Functions.GetPersonaForPed(p);
-                    Game.DisplayNotification("mpcharselect", "mp_generic_avatar", "STATE ISSUED IDENTIFICATION", pers.FullName, "~b~" + pers.FullName + "~n~~y~" + pers.Gender + "~s~. Born: ~y~" + pers.BirthDay.ToShortDateString());
+                    Game.DisplayNotification("mpcharselect", "mp_generic_avatar", "STATE ISSUED IDENTIFICATION", pers.FullName, "~b~" + pers.FullName + "~n~~y~" + pers.Gender + "~s~. Born: ~y~" + pers.Birthday.ToShortDateString());
                 }
             }
         }     
