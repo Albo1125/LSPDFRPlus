@@ -111,7 +111,7 @@ namespace LSPDFR_
                 {
                     string maybeControllerButton = BringUpTrafficStopMenuControllerButton != ControllerButtons.None ? $" or ~o~{BringUpTrafficStopMenuControllerButton}~w~" : "";
 
-                    Game.DisplayNotification($"Press ~b~{BringUpTrafficStopMenuKey}~w~{maybeControllerButton} when standing at the side of the vehicle to bring up the ~g~LSPDFR+ Traffic Stop~w~ menu instead of the normal Traffic Stop menu.");
+                    Game.DisplayNotification($"Press ~b~{BringUpTrafficStopMenuKey.FriendlyName()}~w~{maybeControllerButton} when standing at the side of the vehicle to bring up the ~g~LSPDFR+ Traffic Stop~w~ menu instead of the normal Traffic Stop menu.");
                     HasShownKeybindHelp = true;
                 }
                 
