@@ -676,7 +676,7 @@ namespace LSPDFR_
                         Vector3.Distance2D(Game.LocalPlayer.Character.Position, pulloverSuspect.CurrentVehicle.Position) < TrafficStopMenuDistance + 0.1f
                         )
                     {
-                        ExtensionNamespace.Extensions.DisEnableControls(false);
+                        //ExtensionNamespace.Extensions.DisEnableControls(false);
                         //ExtensionNamespace.Extensions.DisableTrafficStopControls();
 
                         if (ExtensionMethods.IsKeyDownComputerCheck(EnhancedTrafficStop.BringUpTrafficStopMenuKey) || Game.IsControllerButtonDown(EnhancedTrafficStop.BringUpTrafficStopMenuControllerButton))
