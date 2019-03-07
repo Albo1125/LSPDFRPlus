@@ -136,7 +136,7 @@ namespace LSPDFR_
             _MenuPool = new MenuPool();
             //ChecksMenu = new UIMenu("Checks", "");
             //_MenuPool.Add(ChecksMenu);
-            TrafficStopMenu = new UIMenu("LSPDFR+ Traffic Stop", "");
+            TrafficStopMenu = new UIMenu("Traffic Stop", "LSPDFR+");
             _MenuPool.Add(TrafficStopMenu);
             TicketMenu = new UIMenu("Ticket", "");
             _MenuPool.Add(TicketMenu);
