@@ -136,7 +136,7 @@ namespace LSPDFR_
             _MenuPool = new MenuPool();
             //ChecksMenu = new UIMenu("Checks", "");
             //_MenuPool.Add(ChecksMenu);
-            TrafficStopMenu = new UIMenu("Traffic Stop", "");
+            TrafficStopMenu = new UIMenu("LSPDFR+ Traffic Stop", "");
             _MenuPool.Add(TrafficStopMenu);
             TicketMenu = new UIMenu("Ticket", "");
             _MenuPool.Add(TicketMenu);
@@ -248,7 +248,7 @@ namespace LSPDFR_
 
             QuestioningMenu.MouseControlsEnabled = false;
             QuestioningMenu.AllowCameraMovement = true;
-            QuestioningMenu.SetMenuWidthOffset(110);
+            QuestioningMenu.SetMenuWidthOffset(120);
 
             CourtsMenu = new TabView("~b~~h~San Andreas Court");
 
@@ -665,35 +665,47 @@ namespace LSPDFR_
         private static bool CourtsMenuPaused = false;
         private static void Process(object sender, GraphicsEventArgs e)
         {
-            if (Functions.IsPlayerPerformingPullover() && !_MenuPool.IsAnyMenuOpen() && EnhancedTrafficStop.EnhancedTrafficStopsEnabled)
+            try
             {
-                if (Vector3.Distance2D(Game.LocalPlayer.Character.Position, Functions.GetPulloverSuspect(Functions.GetCurrentPullover()).CurrentVehicle.Position) < TrafficStopMenuDistance + 0.1f)
+                if (Functions.IsPlayerPerformingPullover() && !_MenuPool.IsAnyMenuOpen() && EnhancedTrafficStop.EnhancedTrafficStopsEnabled)
                 {
-                    ExtensionNamespace.Extensions.DisEnableControls(false);
-                    //ExtensionNamespace.Extensions.DisableTrafficStopControls();
-
-                    if (ExtensionMethods.IsKeyDownComputerCheck(EnhancedTrafficStop.BringUpTrafficStopMenuKey) || Game.IsControllerButtonDown(EnhancedTrafficStop.BringUpTrafficStopMenuControllerButton))
+                    Ped pulloverSuspect = Functions.GetPulloverSuspect(Functions.GetCurrentPullover());
+                    if (pulloverSuspect &&
+                        pulloverSuspect.IsInAnyVehicle(false) &&
+                        Vector3.Distance2D(Game.LocalPlayer.Character.Position, pulloverSuspect.CurrentVehicle.Position) < TrafficStopMenuDistance + 0.1f
+                        )
                     {
-                        _MenuPool.ResetMenus(true, true);
-                        SeizeVehicleTicketCheckboxItem.Enabled = true;
-                        TicketMenu.ParentMenu = TrafficStopMenu;
-                        TicketMenu.Visible = false;
-                        foreach (UIMenu m in OffenceCategoryMenus)
-                        {
-                            m.Visible = false;
-                        }
-                        TrafficStopMenu.Visible = true;
+                        //ExtensionNamespace.Extensions.DisEnableControls(false);
+                        //ExtensionNamespace.Extensions.DisableTrafficStopControls();
 
+                        if (ExtensionMethods.IsKeyDownComputerCheck(EnhancedTrafficStop.BringUpTrafficStopMenuKey) || Game.IsControllerButtonDown(EnhancedTrafficStop.BringUpTrafficStopMenuControllerButton))
+                        {
+                            _MenuPool.ResetMenus(true, true);
+                            SeizeVehicleTicketCheckboxItem.Enabled = true;
+                            TicketMenu.ParentMenu = TrafficStopMenu;
+                            TicketMenu.Visible = false;
+                            foreach (UIMenu m in OffenceCategoryMenus)
+                            {
+                                m.Visible = false;
+                            }
+                            TrafficStopMenu.Visible = true;
+
+                        }
                     }
                 }
-            }          
 
-            _MenuPool.ProcessMenus();
-            if (CourtsMenu.Visible)
-            {
-                Game.IsPaused = true;
-                CourtsMenu.Update();
+                _MenuPool.ProcessMenus();
+                if (CourtsMenu.Visible)
+                {
+                    Game.IsPaused = true;
+                    CourtsMenu.Update();
+                }
             }
+            catch (Exception exception)
+            {
+                Game.LogTrivial($"Handled {exception}");
+            }
+           
         }
 
         private static void ToggleUIMenuEnabled(UIMenu menu, bool Enabled)

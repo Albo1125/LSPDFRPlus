@@ -35,13 +35,13 @@ namespace LSPDFR_
 
         }
 
-        internal static Version Albo1125CommonVer = new Version("6.6.2.0");
-        internal static Version MadeForGTAVersion = new Version("1.0.1493.1");
+        internal static Version Albo1125CommonVer = new Version("6.6.4.0");
+        internal static Version MadeForGTAVersion = new Version("1.0.1604.1");
         internal static float MinimumRPHVersion = 0.51f;
         internal static string[] AudioFilesToCheckFor = new string[] { };
         internal static string[] OtherFilesToCheckFor = new string[] {  }; //"Plugins/LSPDFR/LSPDFR+/CourtCases.xml"
         internal static Version RAGENativeUIVersion = new Version("1.6.3.0");
-        internal static Version MadeForLSPDFRVersion = new Version("0.3.38.5436");
+        internal static Version MadeForLSPDFRVersion = new Version("0.4.39.22580");
 
         internal static string DownloadURL = "https://www.lcpdfr.com/files/file/11930-lspdfr-improved-pursuit-ai-better-traffic-stops-court-system/";
 

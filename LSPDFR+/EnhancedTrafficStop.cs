@@ -18,7 +18,7 @@ namespace LSPDFR_
     {
         public static bool EnhancedTrafficStopsEnabled = true;
         public static ControllerButtons BringUpTrafficStopMenuControllerButton = ControllerButtons.DPadRight;
-        public static Keys BringUpTrafficStopMenuKey = Keys.E;
+        public static Keys BringUpTrafficStopMenuKey = Keys.D7;
 
         public static TupleList<Ped, string, string> PedsWithCustomTrafficStopQuestionsAndAnswers = new TupleList<Ped, string, string>();
         public static TupleList<Ped, string, Func<Ped, string>> PedsCustomTrafficStopQuestionsAndCallBackAnswer = new TupleList<Ped, string, Func<Ped, string>>();
@@ -26,6 +26,8 @@ namespace LSPDFR_
         public static List<Ped> PedsWhereStandardQuestionsAreHidden = new List<Ped>();
 
         public static TupleList<Ped, TrafficStopQuestionsInfo> SuspectsTrafficStopQuestionsInfo = new TupleList<Ped, TrafficStopQuestionsInfo>();
+
+        public static bool HasShownKeybindHelp = false;
 
 
         public static void PedBackIntoVehicleLogic(Ped suspect, Vehicle suspectvehicle)
@@ -104,6 +106,16 @@ namespace LSPDFR_
         {
             if (Functions.IsPlayerPerformingPullover())
             {
+
+                if (!HasShownKeybindHelp)
+                {
+                    string maybeControllerButton = BringUpTrafficStopMenuControllerButton != ControllerButtons.None ? $" or ~o~{BringUpTrafficStopMenuControllerButton}~w~" : "";
+
+                    Game.DisplayNotification($"Press ~b~{BringUpTrafficStopMenuKey.FriendlyName()}~w~{maybeControllerButton} when standing at the side of the vehicle to bring up the ~g~LSPDFR+ Traffic Stop~w~ menu.");
+                    HasShownKeybindHelp = true;
+                }
+                
+
                 SuspectVehicle = Functions.GetPulloverSuspect(Functions.GetCurrentPullover()).CurrentVehicle;
                 Suspect = Functions.GetPulloverSuspect(Functions.GetCurrentPullover());
                 if (SuspectVehicle.IsBoat)
