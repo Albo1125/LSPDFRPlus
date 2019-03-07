@@ -198,7 +198,7 @@ namespace LSPDFR_
 
                 CourtSystem.CourtSystemMainLogic();
                 
-                EnhancedPursuitAI.MainLoop();
+                //EnhancedPursuitAI.MainLoop();
                 StatisticsCounter.AddCountToStatistic("Times gone on duty", "LSPDFR+");
                 
                 Game.LogTrivial("LSPDFR+ has been fully initialised successfully and is now working.");
