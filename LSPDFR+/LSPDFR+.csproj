@@ -64,9 +64,9 @@
     <DocumentationFile>bin\Release\Obfuscation\Confused\LSPDFR+.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Albo1125.Common, Version=6.6.2.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Albo1125.Common, Version=6.6.4.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>dependencies\Albo1125.Common.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Arrest Manager, Version=7.9.1.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
@@ -90,6 +90,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />

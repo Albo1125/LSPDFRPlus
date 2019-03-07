@@ -17,6 +17,7 @@ using System.Threading;
 using System.Management;
 using System.Net;
 using Rage.Native;
+using Albo1125.Common.CommonLibrary;
 
 [assembly: Rage.Attributes.Plugin("LSPDFR+", Description = "INSTALL IN PLUGINS/LSPDFR FOLDER. Enhances policing in LSPDFR", Author = "Albo1125")]
 namespace LSPDFR_
@@ -39,6 +40,13 @@ namespace LSPDFR_
         public static bool TrafficPolicerRunning = false;
 
         public static KeysConverter kc = new KeysConverter();
+        public static InitializationFile stockLSPDFRIni;
+        public static Popup TrafficStopMenuPopup;
+        public const string LSPDFRKeyIniPath = "lspdfr/keys.ini";
+        private static Keys stockTrafficStopInteractKey = Keys.E;
+        private static Keys stockTrafficStopInteractModifierKey = Keys.None;
+        private static ControllerButtons stockTrafficStopInteractControllerButton = ControllerButtons.DPadRight;
+        private static ControllerButtons stockTrafficStopInteractModifierControllerButton = ControllerButtons.None;
         public static void Initialise()
         {
             //ini stuff
@@ -49,42 +57,43 @@ namespace LSPDFR_
             {
                 EnhancedTrafficStop.BringUpTrafficStopMenuControllerButton = ini.ReadEnum<ControllerButtons>("General", "BringUpTrafficStopMenuControllerButton", ControllerButtons.DPadRight);
                 EnhancedTrafficStop.BringUpTrafficStopMenuKey = (Keys)kc.ConvertFromString(ini.ReadString("General", "BringUpTrafficStopMenuKey", "D7"));
-
-
-                Keys stockTrafficStopInteractKey = Keys.E;
-                Keys stockTrafficStopInteractModifierKey = Keys.None;
-                ControllerButtons stockTrafficStopInteractControllerButton = ControllerButtons.DPadRight;
+              
                 try
                 {
-                    InitializationFile stockLSPDFRIni = new InitializationFile(Path.Combine("lspdfr", "keys.ini"));
-                    stockTrafficStopInteractKey = stockLSPDFRIni.ReadEnum<Keys>("", "TRAFFICSTOP_INTERACT_Key", Keys.E);
-                    stockTrafficStopInteractModifierKey = stockLSPDFRIni.ReadEnum<Keys>("", "TRAFFICSTOP_INTERACT_ModifierKey", Keys.None);
-                    stockTrafficStopInteractControllerButton = ControllerButtons.DPadRight;
+                    stockLSPDFRIni = new InitializationFile(LSPDFRKeyIniPath);
+                    string[] stockinicontents = File.ReadAllLines(LSPDFRKeyIniPath);
+                    //Alternative INI reading implementation, RPH doesn't work with sectionless INIs.
+                    foreach (string line in stockinicontents)
+                    {
+                        if (line.StartsWith("TRAFFICSTOP_INTERACT_Key="))
+                        {
+                            stockTrafficStopInteractKey = (Keys)kc.ConvertFromString(line.Substring(line.IndexOf('=') + 1));
+                        }
+                        else if (line.StartsWith("TRAFFICSTOP_INTERACT_ModifierKey"))
+                        {
+                            stockTrafficStopInteractModifierKey = (Keys)kc.ConvertFromString(line.Substring(line.IndexOf('=') + 1));
+                        }
+                        else if (line.StartsWith("TRAFFICSTOP_INTERACT_ControllerKey"))
+                        {
+                            stockTrafficStopInteractControllerButton = (ControllerButtons)Enum.Parse(typeof(ControllerButtons), line.Substring(line.IndexOf('=') + 1));
+                        }
+                        else if (line.StartsWith("TRAFFICSTOP_INTERACT_ControllerModifierKey"))
+                        {
+                            stockTrafficStopInteractModifierControllerButton = (ControllerButtons)Enum.Parse(typeof(ControllerButtons), line.Substring(line.IndexOf('=') + 1));
+                        }
+                    }
+                    if ((EnhancedTrafficStop.BringUpTrafficStopMenuKey == stockTrafficStopInteractKey && stockTrafficStopInteractModifierKey == Keys.None) || (EnhancedTrafficStop.BringUpTrafficStopMenuControllerButton == stockTrafficStopInteractControllerButton && stockTrafficStopInteractModifierControllerButton == ControllerButtons.None))
+                    {
+                        TrafficStopMenuPopup = new Popup("LSPDFR+: Traffic Stop Menu Conflict", "Your LSPDFR+ traffic stop menu keys (plugins/lspdfr/lspdfr+.ini) are the same as the default LSPDFR traffic stop keys (lspdfr/keys.ini TRAFFICSTOP_INTERACT_Key and TRAFFICSTOP_INTERACT_ControllerKey). How would you like to solve this?",
+                            new List<string>() { "Recommended: Automatically disable the default LSPDFR traffic stop menu keys (this will edit keys.ini TRAFFICSTOP_INTERACT_Key and TRAFFICSTOP_INTERACT_ControllerKey to None)", "I know what I'm doing, I will change the keys in the INIs myself!" }, false, true, TrafficStopMenuCb);
+                        TrafficStopMenuPopup.Display();
+                    }
                 }
                 catch (Exception e)
                 {
-                    Game.LogTrivial($"Failed to determine stock LSPDFR key bind for TRAFFICSTOP_INTERACT_Key: {e}");
+                    Game.LogTrivial($"Failed to determine stock LSPDFR key bind/controller button for traffic stop keys: {e}");
                 }
-
-                if (EnhancedTrafficStop.BringUpTrafficStopMenuKey == stockTrafficStopInteractKey && stockTrafficStopInteractModifierKey == Keys.None)
-                {
-                    Game.DisplayNotification("Your ~g~LSPDFR+ Traffic Stop~w~ key is the same as for the default LSPDFR Traffic Stop. This will cause ~r~problems~w~.");
-                    if (stockTrafficStopInteractKey != Keys.D7) {
-                        EnhancedTrafficStop.BringUpTrafficStopMenuKey = Keys.D7;
-                        Game.DisplayNotification("The LSPDFR+ Traffic Stop key was set to ~y~'7'~w~ on the keyboard, above the letters.");
-                    }
-                    else
-                    {
-                        Game.DisplayNotification("Please change BringUpTrafficStopMenuKey in LSPDFR+.ini.");
-                    }
-                    
-                }
-                if (EnhancedTrafficStop.BringUpTrafficStopMenuControllerButton == stockTrafficStopInteractControllerButton)
-                {
-                    Game.DisplayNotification("Your ~g~LSPDFR+ Traffic Stop~w~ controller button is the same as for the default LSPDFR Traffic Stop. This will cause ~r~problems~w~.");
-                    Game.DisplayNotification("The controller button has been disabled for the ~g~LSPDFR+ Traffic Stop~w~ menu. Please change LSPDFR+.ini if you wish to use a different button");
-                }
-
+              
                 CourtSystem.OpenCourtMenuKey = (Keys)kc.ConvertFromString(ini.ReadString("OnlyWithoutBritishPolicingScriptInstalled", "OpenCourtMenuKey", "F9"));
                 CourtSystem.OpenCourtMenuModifierKey = (Keys)kc.ConvertFromString(ini.ReadString("OnlyWithoutBritishPolicingScriptInstalled", "OpenCourtMenuModifierKey", "None"));
                 EnhancedTrafficStop.EnhancedTrafficStopsEnabled = ini.ReadBoolean("General", "EnhancedTrafficStopsEnabled", true);
@@ -112,6 +121,45 @@ namespace LSPDFR_
             }
             BetaCheck();
         }
+
+        private static void TrafficStopMenuCb(Popup p)
+        {
+            if (p.IndexOfGivenAnswer == 0)
+            {
+                GameFiber.StartNew(delegate
+                {
+                    //RPH ini implementation does not work with INIs without sections!
+                    string[] stockinicontents = File.ReadAllLines(LSPDFRKeyIniPath);
+                    using (StreamWriter writer = new StreamWriter(LSPDFRKeyIniPath))
+                    {
+                        foreach (string line in stockinicontents)
+                        {
+
+                            if (line.StartsWith("TRAFFICSTOP_INTERACT_Key") && EnhancedTrafficStop.BringUpTrafficStopMenuKey == stockTrafficStopInteractKey && stockTrafficStopInteractModifierKey == Keys.None)
+                            {
+                                writer.WriteLine("TRAFFICSTOP_INTERACT_Key=None");
+                            }
+                            else if (line.StartsWith("TRAFFICSTOP_INTERACT_ControllerKey") && EnhancedTrafficStop.BringUpTrafficStopMenuControllerButton == stockTrafficStopInteractControllerButton && stockTrafficStopInteractModifierControllerButton == ControllerButtons.None)
+                            {
+                                writer.WriteLine("TRAFFICSTOP_INTERACT_ControllerKey=None");
+                            }
+                            else
+                            {
+                                writer.WriteLine(line);
+                            }
+                        }
+                    }
+                    Game.DisplayNotification("The default LSPDFR traffic stop menu keys have been disabled (INI changed to None). LSPDFR will now reload, type ~b~forceduty~w~ in the console to resume play.");
+                    GameFiber.Wait(3000);
+                    Game.ReloadActivePlugin();
+                    
+                });
+            }
+            else if (p.IndexOfGivenAnswer == 1)
+            {
+                Game.DisplayNotification("Your ~g~LSPDFR+ Traffic Stop~w~ menu key/controller button is still the same as for the default LSPDFR Traffic Stop. This will cause ~r~problems~w~, ensure you change it!");
+            }
+        }        
 
         private static Stopwatch TimeOnDutyStopWatch = new Stopwatch();
         private static void MainLoop()
