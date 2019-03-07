@@ -12,7 +12,7 @@ using Rage.Native;
 namespace LSPDFR_
 {
     public enum PursuitTactics { Safe, SlightlyAggressive, FulloutAggressive }
-    [Obsolete("LSPDFR 0.4 appears to use custom AI rather than pursuit natives, this no longer works unfortunately.")]
+    [Obsolete("LSPDFR 0.4 appears to use custom AI rather than pursuit natives, this no longer works well unless disabling it.")]
     internal static class EnhancedPursuitAI
     {
         
