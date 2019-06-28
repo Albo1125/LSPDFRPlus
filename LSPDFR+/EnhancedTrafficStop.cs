@@ -263,58 +263,14 @@ namespace LSPDFR_
                     {
                         if (Functions.GetPulloverSuspect(Functions.GetCurrentPullover()).IsInAnyVehicle(false))
                         {
-                            
-                            
-                            if (veh.IsBoat)
-                            {
-                                
-                                Functions.ForceEndCurrentPullover();
-                                Vector3 pos = Suspect.GetBonePosition(0);
-                                Suspect.Tasks.Clear();
-                                Suspect.Position = pos;
-                                
-                            }
-                            else
-                            {
-                                Suspect.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion(5000);
-                                PedBackIntoVehicleLogic(Suspect, SuspectVehicle);
-                            }
-                            NativeFunction.Natives.RESET_PED_LAST_VEHICLE(Suspect);
-                            API.Functions.OnPedOrderedOutOfVehicle(Suspect);
-
-                            GameFiber.Wait(100);
-                            Suspect.Tasks.StandStill(30000);
-                            Functions.SetPedCantBeArrestedByPlayer(Suspect, true);
-                            GameFiber.Yield();
-                            Functions.SetPedCantBeArrestedByPlayer(Suspect, false);
-
-
+                            ProcessOrderOutOfVehicle(veh, Suspect);
                         }
                     }
                     else if (occupantselect == OccupantSelector.Passengers)
                     {
                         foreach (Ped pas in veh.Passengers)
                         {
-                            if (veh.IsBoat)
-                            {
-                                Functions.ForceEndCurrentPullover();
-                                Vector3 pos = pas.GetBonePosition(0);
-                                pas.Tasks.Clear();
-                                pas.Position = pos;
-                                
-                            }
-                            else
-                            {
-                                pas.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion(6000);
-                                PedBackIntoVehicleLogic(pas, SuspectVehicle);
-                            }
-                            NativeFunction.Natives.RESET_PED_LAST_VEHICLE(pas);
-                            API.Functions.OnPedOrderedOutOfVehicle(pas);
-                            GameFiber.Wait(100);
-                            pas.Tasks.StandStill(30000);
-                            Functions.SetPedCantBeArrestedByPlayer(pas, true);
-                            GameFiber.Yield();
-                            Functions.SetPedCantBeArrestedByPlayer(pas, false);
+                            ProcessOrderOutOfVehicle(veh, pas);
 
                         }
                     }
@@ -322,26 +278,7 @@ namespace LSPDFR_
                     {
                         foreach (Ped occ in veh.Occupants)
                         {
-                            if (veh.IsBoat)
-                            {
-                                Functions.ForceEndCurrentPullover();
-                                Vector3 pos = occ.GetBonePosition(0);
-                                occ.Tasks.Clear();
-                                occ.Position = pos;
-                                
-                            }
-                            else
-                            {
-                                occ.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion(6000);
-                                PedBackIntoVehicleLogic(occ, SuspectVehicle);
-                            }
-                            NativeFunction.Natives.RESET_PED_LAST_VEHICLE(occ);
-                            API.Functions.OnPedOrderedOutOfVehicle(occ);
-                            GameFiber.Wait(100);
-                            occ.Tasks.StandStill(30000);
-                            Functions.SetPedCantBeArrestedByPlayer(occ, true);
-                            GameFiber.Yield();
-                            Functions.SetPedCantBeArrestedByPlayer(occ, false);
+                            ProcessOrderOutOfVehicle(veh, occ);
                         }
                     }
                 }
@@ -351,6 +288,28 @@ namespace LSPDFR_
                     Game.LogTrivial("Error in getout handled - LSPDFR+");
                 }
             });
+        }
+
+        private void ProcessOrderOutOfVehicle(Vehicle v, Ped p)
+        {
+            if (v.IsBoat)
+            {
+
+                Functions.ForceEndCurrentPullover();
+                Vector3 pos = p.GetBonePosition(0);
+                p.Tasks.Clear();
+                p.Position = pos;
+
+            }
+            else
+            {
+                Functions.ForceEndCurrentPullover();
+                p.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion(5000);
+                PedBackIntoVehicleLogic(p, SuspectVehicle);
+            }
+            NativeFunction.Natives.RESET_PED_LAST_VEHICLE(p);
+            API.Functions.OnPedOrderedOutOfVehicle(p);
+            Functions.SetPedAsStopped(p, true);
         }
 
         public void IssueTicket(bool SeizeVehicle)
