@@ -41,7 +41,7 @@ namespace LSPDFR_
         internal static string[] AudioFilesToCheckFor = new string[] { };
         internal static string[] OtherFilesToCheckFor = new string[] {  }; //"Plugins/LSPDFR/LSPDFR+/CourtCases.xml"
         internal static Version RAGENativeUIVersion = new Version("1.6.3.0");
-        internal static Version MadeForLSPDFRVersion = new Version("0.4.2");
+        internal static Version MadeForLSPDFRVersion = new Version("0.4.4");
 
         internal static string DownloadURL = "https://www.lcpdfr.com/files/file/11930-lspdfr-improved-pursuit-ai-better-traffic-stops-court-system/";
 
