@@ -28,7 +28,7 @@ namespace LSPDFR_
         internal static string currency { get; set; } = "$";
         internal static bool enablePoints { get; set; } = true;
 
-        internal static Dictionary<string, List<Offence>> CategorizedTrafficOffences = new Dictionary<string, List<Offence>>();
+        internal static Dictionary<string, List<Offence>> CategorizedTrafficOffences { get; set; } = new Dictionary<string, List<Offence>>();
 
         public override string ToString()
         {

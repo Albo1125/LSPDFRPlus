@@ -21,17 +21,10 @@ namespace LSPDFR_
 {
     internal static class Menus
     {
-        //private static UIMenu ChecksMenu;
 
-        
-        //private static UIMenuItem CheckPlateItem;
-        
-        //private static UIMenuItem CheckCourtResultsItem;
         private static MenuPool _MenuPool;
 
-        
-
-
+        #region Speech, ID, ticket, warning, out of vehicle
         //Speech, ID, ticket, warning, out of vehicle
         private static UIMenu TrafficStopMenu;
         private static UIMenuListItem SpeechItem;
@@ -41,9 +34,6 @@ namespace LSPDFR_
         private static UIMenuItem WarningItem;
         private static UIMenuListItem OutOfVehicleItem;
         private static List<dynamic> OccupantSelector = new List<dynamic>() { "Driver", "Passengers", "All occupants" };
-
-        //public static UIMenuSwitchMenusItem MenuSwitchListItem;
-        //private static UIMenu ActiveMenu = ChecksMenu;
 
         private static UIMenu TicketMenu;
         private static UIMenuListItem FineItem;
@@ -86,10 +76,11 @@ namespace LSPDFR_
         public static UIMenuSwitchMenusItem OffenceCategorySwitchItem;
         public static List<UIMenuCheckboxItem> Offences = new List<UIMenuCheckboxItem>();
         public static TupleList<UIMenuCheckboxItem, Offence> CheckboxItems_Offences = new TupleList<UIMenuCheckboxItem, Offence>();
+        #endregion
 
-        public static bool TrafficStopMenuEnabled = true;
+        public static bool TrafficStopMenuEnabled { get; set; } = true;
 
-        public static bool StandardQuestionsInMenu = true;
+        public static bool StandardQuestionsInMenu { get; set; } = true;
 
         public static void ToggleStandardQuestions(bool Enabled)
         {
@@ -167,11 +158,11 @@ namespace LSPDFR_
                 
                 newcategorymenu.AddItem(OffenceCategorySwitchItem);
                 string category = UIMenus_Categories[newcategorymenu];
-                foreach (string reason in Offence.CategorizedTrafficOffences[category].Select(x => x.getName()))
+                foreach (string reason in Offence.CategorizedTrafficOffences[category].Select(x => x.name))
                 {
                     UIMenuCheckboxItem newcheckboxitem = new UIMenuCheckboxItem(reason, false);
                     newcategorymenu.AddItem(newcheckboxitem);
-                    CheckboxItems_Offences.Add(new Tuple<UIMenuCheckboxItem, Offence>(newcheckboxitem, Offence.CategorizedTrafficOffences[category].FirstOrDefault(x => x.getName() == reason)));
+                    CheckboxItems_Offences.Add(new Tuple<UIMenuCheckboxItem, Offence>(newcheckboxitem, Offence.CategorizedTrafficOffences[category].FirstOrDefault(x => x.name == reason)));
                 }
 
                 newcategorymenu.OnMenuClose += OnMenuClose;
@@ -216,7 +207,6 @@ namespace LSPDFR_
                 TicketMenu.AddItem(PointsItem);
             }
             
-            //TicketMenu.AddItem(TicketReasonsListItem = new UIMenuListItem("Offence", TicketReasonsList, 0));            
             TicketMenu.AddItem(SeizeVehicleTicketCheckboxItem = new UIMenuCheckboxItem("Seize Vehicle", false));
             List<dynamic> PenaltyOptions = new List<dynamic>() { "Ticket", "Court Summons" };
             if (LSPDFRPlusHandler.BritishPolicingScriptRunning)
@@ -423,18 +413,18 @@ namespace LSPDFR_
                         }
                     }
                 }
-                int fine = CurrentEnhancedTrafficStop.SelectedOffences.Sum(x => x.getFine());
+                int fine = CurrentEnhancedTrafficStop.SelectedOffences.Sum(x => x.fine);
                 fine = fine - (fine % 5);
                 if (fine >  5000) { fine = 5000; }
                 else if (fine < 5) { fine = 5; }
 
                 FineItem.Index = fine / 5 - 1;
-                int points = CurrentEnhancedTrafficStop.SelectedOffences.Sum(x => x.getPoints());
+                int points = CurrentEnhancedTrafficStop.SelectedOffences.Sum(x => x.points);
                 points = points - (points % Offence.pointincstep);
                 if (points > Offence.maxpoints) { points = Offence.maxpoints; }
                 else if (points < Offence.minpoints) { points = Offence.minpoints; }
                 PointsItem.Index = PointsList.IndexOf(points.ToString());
-                SeizeVehicleTicketCheckboxItem.Checked = CurrentEnhancedTrafficStop.SelectedOffences.Any(x => x.isVehicleSeized());
+                SeizeVehicleTicketCheckboxItem.Checked = CurrentEnhancedTrafficStop.SelectedOffences.Any(x => x.seizeVehicle);
 
             }
         }

@@ -11,10 +11,10 @@ namespace LSPDFR_
     internal class SimpleAES
     {
 
-        // Change these keys
-        private byte[] Key = { 123, 217, 19, 11, 254, 26, 85, 45, 114, 184, 207, 162, 37, 112, 222, 209, 241, 24, 175, 144, 173, 53, 196, 29, 24, 26, 17, 218, 131, 236, 57, 209 };
-        private byte[] Vector = { 146, 64, 143, 111, 23, 3, 113, 119, 231, 121, 129, 112, 79, 32, 114, 156 };
-
+        #region Change these keys
+        private byte[] Key { get; } = { 123, 217, 19, 11, 254, 26, 85, 45, 114, 184, 207, 162, 37, 112, 222, 209, 241, 24, 175, 144, 173, 53, 196, 29, 24, 26, 17, 218, 131, 236, 57, 209 };
+        private byte[] Vector { get; } = { 146, 64, 143, 111, 23, 3, 113, 119, 231, 121, 129, 112, 79, 32, 114, 156 };
+        #endregion
 
         private ICryptoTransform EncryptorTransform, DecryptorTransform;
         private System.Text.UTF8Encoding UTFEncoder;
