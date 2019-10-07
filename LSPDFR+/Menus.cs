@@ -134,8 +134,7 @@ namespace LSPDFR_
         {
             Game.FrameRender += Process;
             _MenuPool = new MenuPool();
-            //ChecksMenu = new UIMenu("Checks", "");
-            //_MenuPool.Add(ChecksMenu);
+
             TrafficStopMenu = new UIMenu("Traffic Stop", "LSPDFR+");
             _MenuPool.Add(TrafficStopMenu);
             TicketMenu = new UIMenu("Ticket", "");
@@ -148,7 +147,6 @@ namespace LSPDFR_
             PursuitTacticsMenu.RefreshIndex();
             PursuitTacticsMenu.OnItemSelect += OnItemSelect;
             PursuitTacticsMenu.OnCheckboxChange += OnCheckboxChange;
-            //TrafficStopMenu.OnListChange += OnListChange;
             PursuitTacticsMenu.MouseControlsEnabled = false;
             PursuitTacticsMenu.AllowCameraMovement = true;
             _MenuPool.Add(PursuitTacticsMenu);
@@ -169,11 +167,11 @@ namespace LSPDFR_
                 
                 newcategorymenu.AddItem(OffenceCategorySwitchItem);
                 string category = UIMenus_Categories[newcategorymenu];
-                foreach (string reason in Offence.CategorizedTrafficOffences[category].Select(x => x.name))
+                foreach (string reason in Offence.CategorizedTrafficOffences[category].Select(x => x.getName()))
                 {
                     UIMenuCheckboxItem newcheckboxitem = new UIMenuCheckboxItem(reason, false);
                     newcategorymenu.AddItem(newcheckboxitem);
-                    CheckboxItems_Offences.Add(new Tuple<UIMenuCheckboxItem, Offence>(newcheckboxitem, Offence.CategorizedTrafficOffences[category].FirstOrDefault(x => x.name == reason)));
+                    CheckboxItems_Offences.Add(new Tuple<UIMenuCheckboxItem, Offence>(newcheckboxitem, Offence.CategorizedTrafficOffences[category].FirstOrDefault(x => x.getName() == reason)));
                 }
 
                 newcategorymenu.OnMenuClose += OnMenuClose;
@@ -298,16 +296,7 @@ namespace LSPDFR_
         }
         private static void OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)
         {
-            //if (sender == ChecksMenu)
-            //{
-                
-            //    if (selectedItem == CheckCourtResultsItem)
-            //    {
-            //        sender.Visible = false;
-            //        CourtsMenu.Visible = true;
 
-            //    }
-            //}
             if (sender == TrafficStopMenu)
             {
                 if (selectedItem == SpeechItem)
@@ -434,18 +423,18 @@ namespace LSPDFR_
                         }
                     }
                 }
-                int fine = CurrentEnhancedTrafficStop.SelectedOffences.Sum(x => x.fine);
+                int fine = CurrentEnhancedTrafficStop.SelectedOffences.Sum(x => x.getFine());
                 fine = fine - (fine % 5);
                 if (fine >  5000) { fine = 5000; }
                 else if (fine < 5) { fine = 5; }
 
                 FineItem.Index = fine / 5 - 1;
-                int points = CurrentEnhancedTrafficStop.SelectedOffences.Sum(x => x.points);
+                int points = CurrentEnhancedTrafficStop.SelectedOffences.Sum(x => x.getPoints());
                 points = points - (points % Offence.pointincstep);
                 if (points > Offence.maxpoints) { points = Offence.maxpoints; }
                 else if (points < Offence.minpoints) { points = Offence.minpoints; }
                 PointsItem.Index = PointsList.IndexOf(points.ToString());
-                SeizeVehicleTicketCheckboxItem.Checked = CurrentEnhancedTrafficStop.SelectedOffences.Any(x => x.seizeVehicle);
+                SeizeVehicleTicketCheckboxItem.Checked = CurrentEnhancedTrafficStop.SelectedOffences.Any(x => x.isVehicleSeized());
 
             }
         }

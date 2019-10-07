@@ -14,13 +14,13 @@ namespace LSPDFR_
 {
     internal static class CourtSystem
     {
-        public static Keys OpenCourtMenuKey = Keys.F9;
-        public static Keys OpenCourtMenuModifierKey = Keys.None;
-        public static List<CourtCase> PendingCourtCases = new List<CourtCase>();
-        public static List<CourtCase> PublishedCourtCases = new List<CourtCase>();
-        public static string CourtCaseFilePath = "Plugins/LSPDFR/LSPDFR+/CourtCases.xml";
-        public static bool LoadingXMLFileCases = true;
-        public static bool RealisticCourtDates = true;
+        public static Keys OpenCourtMenuKey { get; set; } = Keys.F9;
+        public static Keys OpenCourtMenuModifierKey { get; set; } = Keys.None;
+        public static List<CourtCase> PendingCourtCases { get; set; } = new List<CourtCase>();
+        public static List<CourtCase> PublishedCourtCases { get; set; } = new List<CourtCase>();
+        public static string CourtCaseFilePath { get; set; } = "Plugins/LSPDFR/LSPDFR+/CourtCases.xml";
+        public static bool LoadingXMLFileCases { get; set; } = true;
+        public static bool RealisticCourtDates { get; set; } = true;
         public static void CourtSystemMainLogic()
         {
             if (!LSPDFRPlusHandler.BritishPolicingScriptRunning)
@@ -182,7 +182,6 @@ namespace LSPDFR_
         {
 
             CourtCase courtcase = new CourtCase(SuspectName, SuspectDOB, Crime, CrimeDate, GuiltyChance, CourtVerdict, ResultsPublishTime, Published, ResultsPublishedNotificationShown);
-            //Game.LogTrivial("ResultsPublishTime: " + ResultsPublishTime.ToString());
             AddCourtCaseToXMLFile(CourtCaseFilePath, courtcase);
             courtcase.AddToCourtsMenuAndLists();
 
@@ -198,19 +197,6 @@ namespace LSPDFR_
         {
             CreateNewCourtCase(Defendant.FullName, Defendant.Birthday, Crime, DateTime.Now, GuiltyChance, CourtVerdict, DetermineCourtHearingDate(), false);
         }
-        //public static void CreateNewCourtCase(Persona Defendant, EnhancedTrafficStop.TrafficOffences TrafficOffence)
-        //{
-        //    bool GuiltyPlea = DeterminePleadGuilty();
-        //    string crime = EnhancedTrafficStop.TrafficOffencesStrings[(int)TrafficOffence];
-        //    string sentence = DetermineTrafficOffenceSentence(Defendant, TrafficOffence, GuiltyPlea);
-        //    DateTime Hearingdate = DetermineCourtHearingDate();
-        //    string fullname = Defendant.FullName;
-        //    DateTime birthday = Defendant.BirthDay;
-        //    DateTime now = DateTime.Now;
-
-
-        //    CreateNewCourtCase(fullname, Defendant.BirthDay, crime, now, GuiltyPlea, sentence, Hearingdate, false, false);
-        //}
 
         public static bool DeterminePleadGuilty()
         {
@@ -264,68 +250,6 @@ namespace LSPDFR_
             return "Fined $" + Fine + ".";
         }
 
-
-        //public static string DetermineTrafficOffenceSentence(Persona Defendant, EnhancedTrafficStop.TrafficOffences Offence, bool PleadedGuilty)
-        //{
-        //    string s = "";
-        //    if (Offence == EnhancedTrafficStop.TrafficOffences.RoadObstruction || Offence == EnhancedTrafficStop.TrafficOffences.SeatBelt)
-        //    {
-        //        int Fine = (int)Math.Round(((float)EntryPoint.rnd.Next(80, 180)) / 5.0f) * 5;
-        //        int Costs = (int)Math.Round(((float)EntryPoint.rnd.Next(86)) / 5.0f) * 5;
-        //        s = "Fined " + Fine.ToString() + " pounds with " + Costs.ToString() + " pounds costs.";
-        //    }
-        //    else if (Offence == EnhancedTrafficStop.TrafficOffences.DangerousDriving)
-        //    {
-        //        int Fine = (int)Math.Round(((float)EntryPoint.rnd.Next(100, 300)) / 5.0f) * 5;
-        //        int Costs = (int)Math.Round(((float)EntryPoint.rnd.Next(161)) / 5.0f) * 5;
-        //        int MonthsBanned = EntryPoint.rnd.Next(12, 23);
-
-        //        s = "Fined " + Fine.ToString() + " pounds with " + Costs.ToString() + " pounds costs. Disqualified from driving for " + MonthsBanned + " months.";
-
-        //        if (EntryPoint.rnd.Next(6) < 3)
-        //        {
-        //            int HoursUnpaidWork = (int)Math.Round(((float)EntryPoint.rnd.Next(50, 200)) / 5.0f) * 5;
-        //            s += " Community order made with " + HoursUnpaidWork.ToString() + " hours unpaid work.";
-        //        }
-        //    }
-        //    else if (Offence == EnhancedTrafficStop.TrafficOffences.Speeding || Offence == EnhancedTrafficStop.TrafficOffences.MobilePhone || Offence == EnhancedTrafficStop.TrafficOffences.CarelessDriving || Offence == EnhancedTrafficStop.TrafficOffences.TrafficLight
-        //         || Offence == EnhancedTrafficStop.TrafficOffences.DangerousVehicleCondition || Offence == EnhancedTrafficStop.TrafficOffences.IllegalTyre)
-        //    {
-        //        int Fine = (int)Math.Round(((float)EntryPoint.rnd.Next(70, 350)) / 5.0f) * 5;
-        //        int Costs = (int)Math.Round(((float)EntryPoint.rnd.Next(86)) / 5.0f) * 5;
-        //        int Points = EntryPoint.rnd.Next(3, 7);
-
-        //        s = "Fined " + Fine.ToString() + " pounds with " + Costs.ToString() + " pounds costs. Driving licence endorsed with " + Points.ToString() + " points.";
-
-        //        if (Defendant.PenaltyPoints + Points >= 12)
-        //        {
-        //            int MonthsDisqualified = EntryPoint.rnd.Next(6, 13);
-        //            s += " Disqualified for " + MonthsDisqualified.ToString() + " months for totting up.";
-        //        }
-
-        //    }
-
-            
-
-        //    else if (Offence == EnhancedTrafficStop.TrafficOffences.NoInsurance)
-        //    {
-        //        int Fine = (int)Math.Round(((float)EntryPoint.rnd.Next(200, 600)) / 5.0f) * 5;
-        //        int Costs = (int)Math.Round(((float)EntryPoint.rnd.Next(165)) / 5.0f) * 5;
-        //        int Points = 6;
-
-        //        s = "Fined " + Fine.ToString() + " pounds with " + Costs.ToString() + " pounds costs. Driving licence endorsed with " + Points.ToString() + " points.";
-
-        //        if (Defendant.PenaltyPoints + Points >= 12)
-        //        {
-        //            int MonthsDisqualified = EntryPoint.rnd.Next(6, 13);
-        //            s += " Disqualified for " + MonthsDisqualified.ToString() + " months for totting up.";
-        //        }
-
-        //    }
-
-        //    return s;
-        //}
-
         public static DateTime DetermineCourtHearingDate()
         {
             if (RealisticCourtDates)
@@ -344,7 +268,6 @@ namespace LSPDFR_
 
 
                 CourtDate = CourtDate.AddDays(LSPDFRPlusHandler.rnd.Next(1, 4));
-                //Game.LogTrivial("DeterminedResultsPublishTime: " + CourtDate.ToString());
 
                 return CourtDate;
             }
@@ -358,18 +281,23 @@ namespace LSPDFR_
 
     internal class CourtCase
     {
-        public string SuspectName;
-        public DateTime SuspectDOB;
-        public string Crime;
-        public DateTime CrimeDate;
-        public int GuiltyChance;
-        public string CourtVerdict;
-        public DateTime ResultsPublishTime;
-        public bool ResultsPublished;
-        public bool ResultsPublishedNotificationShown = false;
+        public string SuspectName { get; set; }
+        public DateTime SuspectDOB { get; set; }
+        public string Crime { get; set; }
+        public DateTime CrimeDate { get; set; }
+        public int GuiltyChance { get; set; }
+        public string CourtVerdict { get; set; }
+        public DateTime ResultsPublishTime { get; set; }
+        public bool ResultsPublished { get; set; }
+        public bool ResultsPublishedNotificationShown { get; set; } = false;
 
-        public static bool PendingResultsMenuCleared = false;
-        public static bool ResultsMenuCleared = false;
+        public static bool PendingResultsMenuCleared { get; set; } = false;
+        public static bool ResultsMenuCleared { get; set; } = false;
+
+        public string getSuspectName()
+        {
+            return this.SuspectName;
+        }
 
         public string XMLIdentifier
         {

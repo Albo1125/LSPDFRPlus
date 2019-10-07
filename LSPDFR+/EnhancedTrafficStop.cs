@@ -16,18 +16,18 @@ namespace LSPDFR_
 {
     internal class EnhancedTrafficStop
     {
-        public static bool EnhancedTrafficStopsEnabled = true;
-        public static ControllerButtons BringUpTrafficStopMenuControllerButton = ControllerButtons.DPadRight;
-        public static Keys BringUpTrafficStopMenuKey = Keys.D7;
+        public static bool EnhancedTrafficStopsEnabled { get; set; } = true;
+        public static ControllerButtons BringUpTrafficStopMenuControllerButton { get; set; } = ControllerButtons.DPadRight;
+        public static Keys BringUpTrafficStopMenuKey { get; set; } = Keys.D7;
 
-        public static TupleList<Ped, string, string> PedsWithCustomTrafficStopQuestionsAndAnswers = new TupleList<Ped, string, string>();
-        public static TupleList<Ped, string, Func<Ped, string>> PedsCustomTrafficStopQuestionsAndCallBackAnswer = new TupleList<Ped, string, Func<Ped, string>>();
-        public static TupleList<Ped, string, string, Action<Ped, string>> PedsCustomQuestionsAnswerCallback = new TupleList<Ped, string, string, Action<Ped, string>>();
-        public static List<Ped> PedsWhereStandardQuestionsAreHidden = new List<Ped>();
+        public static TupleList<Ped, string, string> PedsWithCustomTrafficStopQuestionsAndAnswers { get; set; } = new TupleList<Ped, string, string>();
+        public static TupleList<Ped, string, Func<Ped, string>> PedsCustomTrafficStopQuestionsAndCallBackAnswer { get; set; } = new TupleList<Ped, string, Func<Ped, string>>();
+        public static TupleList<Ped, string, string, Action<Ped, string>> PedsCustomQuestionsAnswerCallback { get; set; } = new TupleList<Ped, string, string, Action<Ped, string>>();
+        public static List<Ped> PedsWhereStandardQuestionsAreHidden { get; set; } = new List<Ped>();
 
-        public static TupleList<Ped, TrafficStopQuestionsInfo> SuspectsTrafficStopQuestionsInfo = new TupleList<Ped, TrafficStopQuestionsInfo>();
+        public static TupleList<Ped, TrafficStopQuestionsInfo> SuspectsTrafficStopQuestionsInfo { get; set; } = new TupleList<Ped, TrafficStopQuestionsInfo>();
 
-        public static bool HasShownKeybindHelp = false;
+        public static bool HasShownKeybindHelp { get; set; } = false;
 
 
         public static void PedBackIntoVehicleLogic(Ped suspect, Vehicle suspectvehicle)
