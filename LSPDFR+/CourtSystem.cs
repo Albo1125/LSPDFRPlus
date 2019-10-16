@@ -294,11 +294,6 @@ namespace LSPDFR_
         public static bool PendingResultsMenuCleared { get; set; } = false;
         public static bool ResultsMenuCleared { get; set; } = false;
 
-        public string getSuspectName()
-        {
-            return this.SuspectName;
-        }
-
         public string XMLIdentifier
         {
             get
