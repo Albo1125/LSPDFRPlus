@@ -16,19 +16,19 @@ namespace LSPDFR_
     internal static class EnhancedPursuitAI
     {
         
-        public static bool EnhancedPursuitAIEnabled = true;
-        public static bool AutoPursuitBackupEnabled = false;
-        public static Keys OpenPursuitTacticsMenuKey = Keys.Q;
-        public static Keys OpenPursuitTacticsMenuModifierKey = Keys.LShiftKey;
-        public static bool DefaultAutomaticAI = true;
+        public static bool EnhancedPursuitAIEnabled { get; set; } = true;
+        public static bool AutoPursuitBackupEnabled { get; set; } = false;
+        public static Keys OpenPursuitTacticsMenuKey { get; set; } = Keys.Q;
+        public static Keys OpenPursuitTacticsMenuModifierKey { get; set; } = Keys.LShiftKey;
+        public static bool DefaultAutomaticAI { get; set; } = true;
 
 
-        public static PursuitTactics CurrentPursuitTactic = PursuitTactics.Safe;
-        public static bool AutomaticAI = true;
+        public static PursuitTactics CurrentPursuitTactic { get; set; } = PursuitTactics.Safe;
+        public static bool AutomaticAI { get; set; } = true;
 
-        public static bool SetSafePursuit = true;
-        static List<Ped> CopsInPursuit = new List<Ped>();
-        public static bool InPursuit = false;
+        public static bool SetSafePursuit { get; set; } = true;
+        static List<Ped> CopsInPursuit { get; set; } = new List<Ped>();
+        public static bool InPursuit { get; set; } = false;
 
 
 

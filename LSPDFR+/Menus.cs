@@ -21,17 +21,10 @@ namespace LSPDFR_
 {
     internal static class Menus
     {
-        //private static UIMenu ChecksMenu;
 
-        
-        //private static UIMenuItem CheckPlateItem;
-        
-        //private static UIMenuItem CheckCourtResultsItem;
         private static MenuPool _MenuPool;
 
-        
-
-
+        #region Speech, ID, ticket, warning, out of vehicle
         //Speech, ID, ticket, warning, out of vehicle
         private static UIMenu TrafficStopMenu;
         private static UIMenuListItem SpeechItem;
@@ -41,9 +34,6 @@ namespace LSPDFR_
         private static UIMenuItem WarningItem;
         private static UIMenuListItem OutOfVehicleItem;
         private static List<dynamic> OccupantSelector = new List<dynamic>() { "Driver", "Passengers", "All occupants" };
-
-        //public static UIMenuSwitchMenusItem MenuSwitchListItem;
-        //private static UIMenu ActiveMenu = ChecksMenu;
 
         private static UIMenu TicketMenu;
         private static UIMenuListItem FineItem;
@@ -86,10 +76,11 @@ namespace LSPDFR_
         public static UIMenuSwitchMenusItem OffenceCategorySwitchItem;
         public static List<UIMenuCheckboxItem> Offences = new List<UIMenuCheckboxItem>();
         public static TupleList<UIMenuCheckboxItem, Offence> CheckboxItems_Offences = new TupleList<UIMenuCheckboxItem, Offence>();
+        #endregion
 
-        public static bool TrafficStopMenuEnabled = true;
+        public static bool TrafficStopMenuEnabled { get; set; } = true;
 
-        public static bool StandardQuestionsInMenu = true;
+        public static bool StandardQuestionsInMenu { get; set; } = true;
 
         public static void ToggleStandardQuestions(bool Enabled)
         {
@@ -134,8 +125,7 @@ namespace LSPDFR_
         {
             Game.FrameRender += Process;
             _MenuPool = new MenuPool();
-            //ChecksMenu = new UIMenu("Checks", "");
-            //_MenuPool.Add(ChecksMenu);
+
             TrafficStopMenu = new UIMenu("Traffic Stop", "LSPDFR+");
             _MenuPool.Add(TrafficStopMenu);
             TicketMenu = new UIMenu("Ticket", "");
@@ -148,7 +138,6 @@ namespace LSPDFR_
             PursuitTacticsMenu.RefreshIndex();
             PursuitTacticsMenu.OnItemSelect += OnItemSelect;
             PursuitTacticsMenu.OnCheckboxChange += OnCheckboxChange;
-            //TrafficStopMenu.OnListChange += OnListChange;
             PursuitTacticsMenu.MouseControlsEnabled = false;
             PursuitTacticsMenu.AllowCameraMovement = true;
             _MenuPool.Add(PursuitTacticsMenu);
@@ -218,7 +207,6 @@ namespace LSPDFR_
                 TicketMenu.AddItem(PointsItem);
             }
             
-            //TicketMenu.AddItem(TicketReasonsListItem = new UIMenuListItem("Offence", TicketReasonsList, 0));            
             TicketMenu.AddItem(SeizeVehicleTicketCheckboxItem = new UIMenuCheckboxItem("Seize Vehicle", false));
             List<dynamic> PenaltyOptions = new List<dynamic>() { "Ticket", "Court Summons" };
             if (LSPDFRPlusHandler.BritishPolicingScriptRunning)
@@ -298,16 +286,7 @@ namespace LSPDFR_
         }
         private static void OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)
         {
-            //if (sender == ChecksMenu)
-            //{
-                
-            //    if (selectedItem == CheckCourtResultsItem)
-            //    {
-            //        sender.Visible = false;
-            //        CourtsMenu.Visible = true;
 
-            //    }
-            //}
             if (sender == TrafficStopMenu)
             {
                 if (selectedItem == SpeechItem)

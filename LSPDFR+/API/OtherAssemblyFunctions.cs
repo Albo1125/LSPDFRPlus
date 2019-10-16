@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Rage;
+using Arrest_Manager.API;
 
 namespace LSPDFR_.API
 {

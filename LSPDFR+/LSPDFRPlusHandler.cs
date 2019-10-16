@@ -35,18 +35,18 @@ namespace LSPDFR_
     internal static class LSPDFRPlusHandler
     {
         
-        public static bool BritishPolicingScriptRunning = false;
-        public static bool ArrestManagerRunning = false;
-        public static bool TrafficPolicerRunning = false;
+        public static bool BritishPolicingScriptRunning { get; set; } = false;
+        public static bool ArrestManagerRunning { get; set; } = false;
+        public static bool TrafficPolicerRunning { get; set; } = false;
 
-        public static KeysConverter kc = new KeysConverter();
-        public static InitializationFile stockLSPDFRIni;
-        public static Popup TrafficStopMenuPopup;
+        public static KeysConverter kc { get; set; } = new KeysConverter();
+        public static InitializationFile stockLSPDFRIni { get; set; }
+        public static Popup TrafficStopMenuPopup { get; set; }
         public const string LSPDFRKeyIniPath = "lspdfr/keys.ini";
-        private static Keys stockTrafficStopInteractKey = Keys.E;
-        private static Keys stockTrafficStopInteractModifierKey = Keys.None;
-        private static ControllerButtons stockTrafficStopInteractControllerButton = ControllerButtons.DPadRight;
-        private static ControllerButtons stockTrafficStopInteractModifierControllerButton = ControllerButtons.None;
+        private static Keys stockTrafficStopInteractKey { get; set; } = Keys.E;
+        private static Keys stockTrafficStopInteractModifierKey { get; set; } = Keys.None;
+        private static ControllerButtons stockTrafficStopInteractControllerButton { get; set; } = ControllerButtons.DPadRight;
+        private static ControllerButtons stockTrafficStopInteractModifierControllerButton { get; set; } = ControllerButtons.None;
         public static void Initialise()
         {
             //ini stuff

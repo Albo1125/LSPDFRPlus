@@ -35,20 +35,20 @@ namespace LSPDFR_
 
         }
 
-        internal static Version Albo1125CommonVer = new Version("6.6.4.0");
+        internal static Version Albo1125CommonVer= new Version("6.6.4.0");
         internal static Version MadeForGTAVersion = new Version("1.0.1604.1");
-        internal static float MinimumRPHVersion = 0.51f;
+        internal const float MinimumRPHVersion = 0.51f;
         internal static string[] AudioFilesToCheckFor = new string[] { };
         internal static string[] OtherFilesToCheckFor = new string[] {  }; //"Plugins/LSPDFR/LSPDFR+/CourtCases.xml"
         internal static Version RAGENativeUIVersion = new Version("1.6.3.0");
-        internal static Version MadeForLSPDFRVersion = new Version("0.4.2");
+        internal static Version MadeForLSPDFRVersion = new Version("0.4.4");
 
-        internal static string DownloadURL = "https://www.lcpdfr.com/files/file/11930-lspdfr-improved-pursuit-ai-better-traffic-stops-court-system/";
+        internal const string DownloadURL = "https://www.lcpdfr.com/files/file/11930-lspdfr-improved-pursuit-ai-better-traffic-stops-court-system/";
 
-        internal static string FileID = "11930";
+        internal const string FileID = "11930";
 
-        internal static string PluginName = "LSPDFR+";
-        internal static string Path = "Plugins/LSPDFR/LSPDFR+.dll";
+        internal const string PluginName = "LSPDFR+";
+        internal const string Path = "Plugins/LSPDFR/LSPDFR+.dll";
 
         internal static string[] ConflictingFiles = new string[] { "Plugins/LSPDFR/AutoPursuitBackupDisabler.dll", "Plugins/LSPDFR/SaferChasesRPH.dll" };
 
