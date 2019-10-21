@@ -20,8 +20,10 @@ namespace LSPDFR_
         internal static int pointincstep { get; set; } = 1;
         internal static int maxFine { get; set; } = 5000;
 
-        internal static Keys OpenTicketMenuKey { get; set; } = Keys.Q;
-        internal static Keys OpenTicketMenuModifierKey { get; set; } = Keys.LShiftKey;
+        private const String offencePath = "Plugins / LSPDFR / LSPDFR +/ Offences";
+
+        internal const Keys OpenTicketMenuKey = Keys.Q;
+        internal const Keys OpenTicketMenuModifierKey = Keys.LShiftKey;
 
         internal static string currency { get; set; } = "$";
         internal static bool enablePoints { get; set; } = true;
@@ -35,9 +37,9 @@ namespace LSPDFR_
         internal static List<Offence> DeserializeOffences()
         {
             List<Offence> AllOffences = new List<Offence>();
-            if (Directory.Exists("Plugins/LSPDFR/LSPDFR+/Offences"))
+            if (Directory.Exists(offencePath))
             {
-                foreach (string file in Directory.EnumerateFiles("Plugins/LSPDFR/LSPDFR+/Offences", "*.xml", SearchOption.TopDirectoryOnly))
+                foreach (string file in Directory.EnumerateFiles(offencePath, "*.xml", SearchOption.TopDirectoryOnly))
                 {
                     try
                     {
@@ -62,7 +64,10 @@ namespace LSPDFR_
             if (AllOffences.Count == 0)
             {
                 AllOffences.Add(new Offence());
-                Game.DisplayNotification("~r~~h~LSPDFR+ couldn't find a valid XML file with offences in Plugins/LSPDFR/LSPDFR+/Offences. Setting just the default offence.");
+                Game.DisplayNotification(
+                    String.Format("~r~~h~LSPDFR+ couldn't find a valid XML file with offences in {0}. Setting just the default offence.",
+                    offencePath));
+
             }
             CategorizedTrafficOffences = AllOffences.GroupBy(x => x.offenceCategory).ToDictionary(x => x.Key, x => x.ToList());
             return AllOffences;
