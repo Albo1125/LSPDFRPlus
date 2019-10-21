@@ -10,7 +10,7 @@ namespace LSPDFR_
 {
     internal static class StatisticsCounter
     {
-        public static string StatisticsFilePath = "Plugins/LSPDFR/LSPDFR+/Statistics.xml";
+        public const string StatisticsFilePath = "Plugins/LSPDFR/LSPDFR+/Statistics.xml";
        
 
         
