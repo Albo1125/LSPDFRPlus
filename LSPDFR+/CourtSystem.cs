@@ -12,10 +12,13 @@ namespace LSPDFR_
 {
     internal static class CourtSystem
     {
+        #region CourtSytem Keys
         public static Keys OpenCourtMenuKey { get; set; } = Keys.F9;
         public static Keys OpenCourtMenuModifierKey { get; set; } = Keys.None;
+        #endregion
         public static List<CourtCase> PendingCourtCases { get; set; } = new List<CourtCase>();
         public static List<CourtCase> PublishedCourtCases { get; set; } = new List<CourtCase>();
+
         public const string CourtCaseFilePath = "Plugins/LSPDFR/LSPDFR+/CourtCases.xml";
         public static bool LoadingXMLFileCases { get; set; } = true;
         public static bool RealisticCourtDates { get; set; } = true;
