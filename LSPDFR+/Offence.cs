@@ -22,8 +22,8 @@ namespace LSPDFR_
 
         private const String offencePath = "Plugins / LSPDFR / LSPDFR +/ Offences";
 
-        internal const Keys OpenTicketMenuKey = Keys.Q;
-        internal const Keys OpenTicketMenuModifierKey = Keys.LShiftKey;
+        internal static Keys OpenTicketMenuKey { get; set; } = Keys.Q;
+        internal static Keys OpenTicketMenuModifierKey { get; set; } = Keys.LShiftKey;
 
         internal static string currency { get; set; } = "$";
         internal static bool enablePoints { get; set; } = true;
