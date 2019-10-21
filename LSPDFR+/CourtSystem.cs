@@ -16,7 +16,7 @@ namespace LSPDFR_
         public static Keys OpenCourtMenuModifierKey { get; set; } = Keys.None;
         public static List<CourtCase> PendingCourtCases { get; set; } = new List<CourtCase>();
         public static List<CourtCase> PublishedCourtCases { get; set; } = new List<CourtCase>();
-        public static string CourtCaseFilePath { get; set; } = "Plugins/LSPDFR/LSPDFR+/CourtCases.xml";
+        public const string CourtCaseFilePath = "Plugins/LSPDFR/LSPDFR+/CourtCases.xml";
         public static bool LoadingXMLFileCases { get; set; } = true;
         public static bool RealisticCourtDates { get; set; } = true;
         public static void CourtSystemMainLogic()
