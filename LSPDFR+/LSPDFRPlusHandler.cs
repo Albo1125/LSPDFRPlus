@@ -1,21 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LSPD_First_Response.Mod.API;
 using Rage;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using RAGENativeUI;
-using RAGENativeUI.Elements;
-using System.Drawing;
-using System.Threading;
-using System.Management;
-using System.Net;
 using Rage.Native;
 using Albo1125.Common.CommonLibrary;
 

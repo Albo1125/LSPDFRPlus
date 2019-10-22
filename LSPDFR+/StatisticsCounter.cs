@@ -1,11 +1,8 @@
 ﻿using Rage;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -13,7 +10,7 @@ namespace LSPDFR_
 {
     internal static class StatisticsCounter
     {
-        public static string StatisticsFilePath = "Plugins/LSPDFR/LSPDFR+/Statistics.xml";
+        public const string StatisticsFilePath = "Plugins/LSPDFR/LSPDFR+/Statistics.xml";
        
 
         

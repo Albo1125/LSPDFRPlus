@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LSPD_First_Response.Mod.API;
 using Rage;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Reflection;
 using System.Windows.Forms;
 using RAGENativeUI;
 using RAGENativeUI.Elements;
-using System.Drawing;
 using Rage.Native;
 using RAGENativeUI.PauseMenu;
 using Albo1125.Common.CommonLibrary;
@@ -35,6 +28,7 @@ namespace LSPDFR_
         private static UIMenuListItem OutOfVehicleItem;
         private static List<dynamic> OccupantSelector = new List<dynamic>() { "Driver", "Passengers", "All occupants" };
 
+        #region Ticket Menu
         private static UIMenu TicketMenu;
         private static UIMenuListItem FineItem;
         private static List<string> FineList = new List<string>();
@@ -50,8 +44,9 @@ namespace LSPDFR_
 
         private static UIMenuListItem IssueTicketItem;
         private static UIMenuCheckboxItem SeizeVehicleTicketCheckboxItem;
-        
+        #endregion
 
+        #region Question Driver Menu
         private static UIMenu QuestioningMenu;
         private static UIMenuItem IllegalInVehQuestionItem;
         private static UIMenuItem DrinkingQuestionItem;
@@ -61,21 +56,29 @@ namespace LSPDFR_
         private static List<UIMenuItem> CustomQuestionsItems = new List<UIMenuItem>();
         private static List<UIMenuItem> CustomQuestionsCallbacksAnswersItems = new List<UIMenuItem>();
         private static List<UIMenuItem> CustomQuestionsAnswersCallbackItems = new List<UIMenuItem>();
+        #endregion
 
+        #region Court Menu
         public static TabView CourtsMenu;
 
         public static TabSubmenuItem PendingResultsList;
         public static TabSubmenuItem PublishedResultsList;
+        #endregion
 
+        #region Pursuit Menu
         public static UIMenu PursuitTacticsMenu;
         public static UIMenuCheckboxItem AutomaticTacticsCheckboxItem;
         public static UIMenuListItem PursuitTacticsListItem;
         public static List<DisplayItem> PursuitTacticsOptionsList = new List<DisplayItem>() { new DisplayItem("Safe"), new DisplayItem("Slightly Aggressive"), new DisplayItem("Full-out aggressive") };
+        #endregion
 
+        #region Offence Menu
         public static List<UIMenu> OffenceCategoryMenus = new List<UIMenu>();
         public static UIMenuSwitchMenusItem OffenceCategorySwitchItem;
         public static List<UIMenuCheckboxItem> Offences = new List<UIMenuCheckboxItem>();
         public static TupleList<UIMenuCheckboxItem, Offence> CheckboxItems_Offences = new TupleList<UIMenuCheckboxItem, Offence>();
+        #endregion
+
         #endregion
 
         public static bool TrafficStopMenuEnabled { get; set; } = true;
