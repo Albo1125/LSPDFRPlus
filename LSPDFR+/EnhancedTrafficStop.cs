@@ -36,7 +36,7 @@ namespace LSPDFR_
             {
                 try
                 {
-                    while (true)
+                    while (Main.EnableLoops)
                     {
                         GameFiber.Yield();
                         if (!suspect.Exists() || !suspectvehicle.Exists())

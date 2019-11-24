@@ -435,7 +435,7 @@ namespace LSPDFR_
             {
                 try
                 {
-                    while (true)
+                    while (Main.EnableLoops)
                     {
                         GameFiber.Yield();
                         if (EnhancedPursuitAI.InPursuit && Game.LocalPlayer.Character.IsInAnyVehicle(false))
@@ -642,7 +642,7 @@ namespace LSPDFR_
         public static float TrafficStopMenuDistance = 3.7f;
         private static EnhancedTrafficStop CurrentEnhancedTrafficStop = new EnhancedTrafficStop();
         private static bool CourtsMenuPaused = false;
-        private static void Process(object sender, GraphicsEventArgs e)
+        internal static void Process(object sender, GraphicsEventArgs e)
         {
             try
             {

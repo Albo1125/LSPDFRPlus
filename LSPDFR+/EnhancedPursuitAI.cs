@@ -39,7 +39,7 @@ namespace LSPDFR_
             {
 
 
-                while (true)
+                while (Main.EnableLoops)
                 {
                     try
                     {

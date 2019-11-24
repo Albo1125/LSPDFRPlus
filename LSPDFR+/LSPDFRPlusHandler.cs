@@ -204,7 +204,7 @@ namespace LSPDFR_
                 Game.LogTrivial("LSPDFR+ has been fully initialised successfully and is now working.");
                 
                 TimeOnDutyStopWatch.Start();
-                while (true)
+                while (Main.EnableLoops)
                 {
                     GameFiber.Yield();
 
