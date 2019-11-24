@@ -435,7 +435,7 @@ namespace LSPDFR_
             {
                 try
                 {
-                    while (true)
+                    while (Main.EnableLoops)
                     {
                         GameFiber.Yield();
                         if (EnhancedPursuitAI.InPursuit && Game.LocalPlayer.Character.IsInAnyVehicle(false))
