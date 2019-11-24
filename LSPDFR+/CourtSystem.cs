@@ -36,7 +36,7 @@ namespace LSPDFR_
                         .Save(CourtCaseFilePath);
                     }
                     LoadCourtCasesFromXMLFile(CourtCaseFilePath);
-                    while (true)
+                    while (Main.EnableLoops)
                     {
                         GameFiber.Yield();
                         foreach (CourtCase ccase in PendingCourtCases.ToArray())

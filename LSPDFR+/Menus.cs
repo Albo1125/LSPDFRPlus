@@ -642,7 +642,7 @@ namespace LSPDFR_
         public static float TrafficStopMenuDistance = 3.7f;
         private static EnhancedTrafficStop CurrentEnhancedTrafficStop = new EnhancedTrafficStop();
         private static bool CourtsMenuPaused = false;
-        private static void Process(object sender, GraphicsEventArgs e)
+        internal static void Process(object sender, GraphicsEventArgs e)
         {
             try
             {

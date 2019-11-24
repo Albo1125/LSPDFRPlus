@@ -52,6 +52,8 @@ namespace LSPDFR_
 
         internal static string[] ConflictingFiles = new string[] { "Plugins/LSPDFR/AutoPursuitBackupDisabler.dll", "Plugins/LSPDFR/SaferChasesRPH.dll" };
 
+        internal static bool EnableLoops { get; private set; } = true;
+
         static void Functions_OnOnDutyStateChanged(bool onDuty)
         {
             if (onDuty)
@@ -60,8 +62,14 @@ namespace LSPDFR_
                 if (Albo1125.Common.DependencyChecker.DependencyCheckMain(PluginName, Albo1125CommonVer, MinimumRPHVersion, MadeForGTAVersion, MadeForLSPDFRVersion, RAGENativeUIVersion, AudioFilesToCheckFor, OtherFilesToCheckFor))
                 {
                     Albo1125.Common.DependencyChecker.CheckIfThereAreNoConflictingFiles(PluginName, ConflictingFiles);
-                    LSPDFRPlusHandler.Initialise();                  
+                    LSPDFRPlusHandler.Initialise();
                 }
+            }
+            else
+            {
+                EnableLoops = false;
+                Functions.OnOnDutyStateChanged -= Functions_OnOnDutyStateChanged;
+                Game.FrameRender -= Menus.Process;
             }
         }
         public static bool IsLSPDFRPluginRunning(string Plugin, Version minversion = null)
